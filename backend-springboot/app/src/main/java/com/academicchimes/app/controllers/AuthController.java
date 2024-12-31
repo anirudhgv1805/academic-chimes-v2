@@ -1,14 +1,16 @@
 package com.academicchimes.app.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academicchimes.app.dto.LoginRequest;
-
-import org.springframework.web.bind.annotation.RequestParam;
+import com.academicchimes.app.dto.RegisterRequest;
+import com.academicchimes.app.services.UserService;
 
 
 
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api")
 public class AuthController {
     
+    @Autowired
+    UserService userService;
+
     @GetMapping("/")
     public String apiStatus() {
         return new String("Backend API is live");
@@ -27,11 +32,8 @@ public class AuthController {
         return ResponseEntity.ok("got the login request");
     }
 
-    @GetMapping("/auth/register")
-    public ResponseEntity<?> registerAuth() {
-        return ResponseEntity.ok("register path is working");
+    @PostMapping("/auth/register")
+    public ResponseEntity<?> registerAuth(@RequestBody RegisterRequest registerRequest) { 
+        return ResponseEntity.ok(userService.saveUser(registerRequest));
     }
-    
-    
-    
 }

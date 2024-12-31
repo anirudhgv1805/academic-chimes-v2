@@ -6,4 +6,5 @@ import com.academicchimes.app.models.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
     
+    public User findUserById(String id);
 }
