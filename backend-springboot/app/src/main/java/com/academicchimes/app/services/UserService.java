@@ -19,6 +19,8 @@ public class UserService {
 
     public ResponseEntity<?> saveUser(RegisterRequest registerRequest){
         User user = setRegistration(registerRequest);
+        if(userRepository.existsById(user.getId()))
+            return ResponseEntity.status(409).body("User already registered");
         return ResponseEntity.ok(userRepository.save(user));
     }
 
