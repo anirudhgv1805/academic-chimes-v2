@@ -2,7 +2,7 @@ package com.academicchimes.app.dto;
 
 public class RegisterRequest {
     
-    private String id;
+    private String userId;
     private String username;
     private String password; 
     private String email;
@@ -11,12 +11,12 @@ public class RegisterRequest {
     private String section;
     private int batch;
 
-    public String getId() {
-        return this.id;
+    public String getUserId() {
+        return this.userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -78,7 +78,7 @@ public class RegisterRequest {
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
+            " userId='" + getUserId() + "'" +
             ", username='" + getUsername() + "'" +
             ", password='" + getPassword() + "'" +
             ", email='" + getEmail() + "'" +

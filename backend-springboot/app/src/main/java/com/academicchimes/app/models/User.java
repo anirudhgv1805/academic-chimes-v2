@@ -1,14 +1,18 @@
 package com.academicchimes.app.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity(name = "users")
 public class User {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    private String userId;
     private String username;
     private String password;
     private String email;
@@ -20,8 +24,8 @@ public class User {
     public User() {
     }
 
-    public User(String id, String username, String password, String email, String role, String dept, String section, int batch) {
-        this.id = id;
+    public User(String userId, String username, String password, String email, String role, String dept, String section, int batch) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -31,12 +35,12 @@ public class User {
         this.batch = batch;
     }
 
-    public String getId() {
-        return this.id;
+    public String getUserId() {
+        return this.userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -99,7 +103,7 @@ public class User {
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
+            " userId='" + getUserId() + "'" +
             ", username='" + getUsername() + "'" +
             ", password='" + getPassword() + "'" +
             ", email='" + getEmail() + "'" +

@@ -26,10 +26,9 @@ public class AuthController {
         return new String("Backend API is live");
     }
 
-    @GetMapping("/auth/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<?> loginAuth(@RequestBody LoginRequest loginRequest) {
-        
-        return ResponseEntity.ok("got the login request");
+        return ResponseEntity.ok(userService.loginUser(loginRequest));
     }
 
     @PostMapping("/auth/register")
