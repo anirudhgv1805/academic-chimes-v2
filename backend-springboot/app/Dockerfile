@@ -1,6 +1,6 @@
 # Use a multi-stage build to keep the final image small
 # Stage 1: Build the application
-FROM gradle:7.6.2-jdk21 AS builder
+FROM gradle:7.6-jdk17 AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
