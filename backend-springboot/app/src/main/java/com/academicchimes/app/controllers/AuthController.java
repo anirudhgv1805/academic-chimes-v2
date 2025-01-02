@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.academicchimes.app.dto.LoginRequest;
-import com.academicchimes.app.dto.RegisterRequest;
-import com.academicchimes.app.services.UserService;
+import com.academicchimes.app.models.User;
+import com.academicchimes.app.services.UserAuthService;
 
 
 
@@ -19,7 +18,7 @@ import com.academicchimes.app.services.UserService;
 public class AuthController {
     
     @Autowired
-    UserService userService;
+    UserAuthService userAuthService;
 
     @GetMapping("/")
     public String apiStatus() {
@@ -27,12 +26,12 @@ public class AuthController {
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<?> loginAuth(@RequestBody LoginRequest loginRequest) {
-        return ResponseEntity.ok(userService.loginUser(loginRequest));
+    public ResponseEntity<?> loginAuth(@RequestBody User loginRequest) {
+        return ResponseEntity.ok(userAuthService.loginUser(loginRequest));
     }
 
     @PostMapping("/auth/register")
-    public ResponseEntity<?> registerAuth(@RequestBody RegisterRequest registerRequest) { 
-        return ResponseEntity.ok(userService.saveUser(registerRequest));
+    public ResponseEntity<?> registerAuth(@RequestBody User registerRequest) { 
+        return ResponseEntity.ok(userAuthService.saveUser(registerRequest));
     }
 }
