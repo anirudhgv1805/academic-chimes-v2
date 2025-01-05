@@ -31,7 +31,7 @@ ENV SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL} \
     SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME} \
     SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
 
-# Set Kafka and Zookeeper environment variables (adjust as needed)
+# Set Kafka and Zookeeper environment variables
 ENV KAFKA_HOME=/opt/kafka
 ENV ZOOKEEPER_MAXBUFFER=10485760  # Increase jute.maxbuffer (10MB)
 ENV PATH="${KAFKA_HOME}/bin:${PATH}"
