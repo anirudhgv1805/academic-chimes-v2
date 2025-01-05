@@ -1,5 +1,4 @@
-# Use a multi-stage build to keep the final image small
-# Stage 1: Build the application
+# Stage 1: Build the application using Gradle
 FROM gradle:7.6-jdk17 AS builder
 
 # Set the working directory inside the container
@@ -8,11 +7,11 @@ WORKDIR /app
 # Copy project files to the container
 COPY . .
 
-# Build the application
+# Build the application (excluding tests to speed up the process)
 RUN gradle clean build -x test
 
-# Stage 2: Create the runtime container
-FROM openjdk:17-jdk-slim
+# Stage 2: Create the runtime container for Spring Boot app, Kafka, and Zookeeper
+FROM openjdk:21-jdk-slim
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -20,29 +19,25 @@ WORKDIR /app
 # Copy the built JAR file from the builder stage
 COPY --from=builder /app/build/libs/*.jar app.jar
 
-# Install Kafka
+# Expose the ports needed for Spring Boot, Zookeeper, and Kafka (9092 for Kafka, 8080 for Spring Boot, 2181 for Zookeeper)
+EXPOSE 8080 9092 2181
+
+# Install dependencies for Kafka and Zookeeper (wget to download and install Kafka)
 RUN apt-get update && apt-get install -y wget && \
-    wget https://downloads.apache.org/kafka/3.6.0/kafka_2.13-3.6.0.tgz && \
-    tar -xvzf kafka_2.13-3.6.0.tgz && \
-    mv kafka_2.13-3.6.0 /opt/kafka && \
-    rm kafka_2.13-3.6.0.tgz
+    wget https://downloads.apache.org/kafka/3.9.0/kafka_2.13-3.9.0.tgz && \
+    tar -xvzf kafka_2.13-3.9.0.tgz && \
+    mv kafka_2.13-3.9.0 /opt/kafka && \
+    rm kafka_2.13-3.9.0.tgz
 
-# Set Kafka home environment variable
-ENV KAFKA_HOME=/opt/kafka
-ENV PATH=$PATH:$KAFKA_HOME/bin
+# Set environment variables for Zookeeper and Kafka
+ENV ZOOKEEPER_CLIENT_PORT=2181
+ENV KAFKA_LISTENER_SECURITY_PROTOCOL=PLAINTEXT
+ENV KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+ENV KAFKA_LISTENER_PORT=9092
+ENV KAFKA_ADVERTISED_LISTENER=PLAINTEXT://localhost:9092
+ENV KAFKA_LISTENER_NAME=PLAINTEXT
 
-# Expose ports for the application and Kafka
-EXPOSE 8080 9092
-
-# Set environment variables for database configuration
-ENV SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL} \
-    SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME} \
-    SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-
-# Start Kafka and the Spring Boot application
-CMD bash -c " \
-    $KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties & \
-    sleep 5 && \
-    $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties & \
-    sleep 10 && \
-    java -jar app.jar"
+# Start Zookeeper and Kafka, then the Spring Boot application
+CMD /opt/kafka/bin/zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties & \
+    /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties & \
+    java -jar app.jar
