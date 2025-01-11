@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
+import './index.css'
 import { Register } from "./pages/Register";
-import './index.css';
 import Login from "./pages/Login";
+import {DashBoard} from './pages/DashBoard'
 
 
 const App : React.FC = () => {
@@ -13,6 +14,7 @@ const App : React.FC = () => {
         <Routes>
           <Route path="/" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
+          <Route path="/dashboard" element={<DashBoard/>}/>
           {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/> */}
         </Routes>
       </BrowserRouter>

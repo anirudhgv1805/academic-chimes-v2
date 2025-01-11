@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.academicchimes.app.models.User;
 import com.academicchimes.app.repositories.UserRepository;
+import com.academicchimes.app.security.JwtUtil;
 
 @Service
 public class UserAuthService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private JwtUtil jwtUtil;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -24,13 +27,15 @@ public class UserAuthService {
         return ResponseEntity.ok(userRepository.save(user));
     }
 
-    public ResponseEntity<?> loginUser(User loginRequest) {
+    public ResponseEntity<String> loginUser(User loginRequest) {
         if(!userRepository.findByUserId(loginRequest.getUserId()).isPresent()) 
-            return ResponseEntity.status(401).body("Username is wrong or not yet registered");
-        if(verifyCredentials(loginRequest))
-            return ResponseEntity.ok("User login successfully verified");
+            return ResponseEntity.status(401).body("User is not registered");
+        if(verifyCredentials(loginRequest)){
+            String token = jwtUtil.generateToken(loginRequest.getUserId(), loginRequest.getRole());
+            return ResponseEntity.ok().body(token);
+        }
         else 
-            return ResponseEntity.status(401).body("The password u entered is wrong");
+            return ResponseEntity.status(401).body("Password is incorrect");
     }
 
     private Boolean verifyCredentials(User loginRequest){

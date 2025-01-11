@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academicchimes.app.models.User;
+import com.academicchimes.app.security.JwtUtil;
 import com.academicchimes.app.services.UserAuthService;
 
 
@@ -29,6 +30,7 @@ public class AuthController {
 
     @PostMapping("/auth/login")
     public ResponseEntity<?> loginAuth(@RequestBody User loginRequest) {
+
         System.out.println(loginRequest);
         return ResponseEntity.ok(userAuthService.loginUser(loginRequest));
     }

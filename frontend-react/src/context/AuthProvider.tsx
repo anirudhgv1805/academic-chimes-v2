@@ -12,6 +12,7 @@ export const AuthProvider : React.FC< AuthProviderProps > = ({ children }) => {
 
     useEffect( () => {
         if(jwtToken){
+            console.log("at auth provider" + jwtToken);
             const userDetails = JSON.parse(localStorage.getItem('user') || '{}')
             setUser(userDetails);
         }
