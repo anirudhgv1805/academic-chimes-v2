@@ -16,4 +16,9 @@ public class UserService {
         UserDTO userDTO = new UserDTO(userRepository.findByUserId(userId).get());
         return userDTO;
     }
+
+    
+    public String example(){
+        return new String("Hello World!!");
+    }
 }

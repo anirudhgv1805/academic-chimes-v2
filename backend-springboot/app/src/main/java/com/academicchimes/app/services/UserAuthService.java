@@ -31,6 +31,7 @@ public class UserAuthService {
         if(!userRepository.findByUserId(loginRequest.getUserId()).isPresent()) 
             return ResponseEntity.status(401).body("User is not registered");
         if(verifyCredentials(loginRequest)){
+            System.out.println("checking for validity");
             String token = jwtUtil.generateToken(loginRequest.getUserId(), loginRequest.getRole());
             return ResponseEntity.ok().body(token);
         }
