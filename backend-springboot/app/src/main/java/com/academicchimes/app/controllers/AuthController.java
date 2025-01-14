@@ -17,7 +17,7 @@ import com.academicchimes.app.services.UserAuthService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("${cors.allowedOrigins}")
 public class AuthController {
     
     @Autowired

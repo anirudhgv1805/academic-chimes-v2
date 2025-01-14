@@ -42,7 +42,7 @@ public class JwtUtil{
     }
 
     public String extractRole(String token){
-        return parseToken(token).get("role",null);
+        return parseToken(token).get("role",String.class);
     }
 
     public String extractUserName(String token){
@@ -62,7 +62,7 @@ public class JwtUtil{
         JwtParser jwtParser = Jwts.parser()
                                 .verifyWith(key)
                                 .build();
-        return jwtParser.parseUnsecuredClaims(token)
+        return jwtParser.parseSignedClaims(token)
                             .getPayload();
     }
     
