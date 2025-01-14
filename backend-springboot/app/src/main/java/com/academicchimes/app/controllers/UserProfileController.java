@@ -1,9 +1,7 @@
 package com.academicchimes.app.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.web.headers.HeadersSecurityMarker;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -30,7 +28,6 @@ public class UserProfileController {
         System.out.println("This is the acutal request"+authorizationHeader);
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
             String token = authorizationHeader.substring(7);
-            System.out.println(token);
             String userId = jwtUtil.extractUserName(token);
             return userService.fetchUserProfile(userId);
         }

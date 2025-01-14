@@ -1,5 +1,6 @@
-import React, { ReactNode, useEffect, useState} from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { User } from "../types/User";
+import { useAxiosInstance } from "../utils/axiosInstance";
 import { AuthContext } from "./AuthContext";
 
 interface AuthProviderProps{
@@ -10,19 +11,30 @@ export const AuthProvider : React.FC< AuthProviderProps > = ({ children }) => {
     const [jwtToken, setJwtToken] = useState<string | null>(localStorage.getItem('jwtToken'))
     const [user, setUser] = useState<User | null>(null);
 
+    const axiosInstance = useAxiosInstance();
+    
     useEffect( () => {
         if(jwtToken){
-            console.log("at auth provider" + jwtToken);
             const userDetails = JSON.parse(localStorage.getItem('user') || '{}')
             setUser(userDetails);
         }
     },[jwtToken]);
 
-    const login = (jwtToken:string,userDetails:User) => {
+    const getUserData = async() =>{
+        try{
+            const response = await axiosInstance.post('/me');
+            localStorage.setItem('user',JSON.stringify(response.data));
+        } catch(err : unknown){
+            console.log("cannot fetch the user"+err);
+        } finally{
+            console.log("fetched the user");
+        }
+        
+    };
+    const login = async (jwtToken:string) => {
         localStorage.setItem('jwtToken',jwtToken);
-        localStorage.setItem('user',JSON.stringify(userDetails));
         setJwtToken(jwtToken);
-        setUser(userDetails);
+        await getUserData();
     };
 
     const logout = () =>{

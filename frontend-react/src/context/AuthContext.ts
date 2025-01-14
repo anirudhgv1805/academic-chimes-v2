@@ -5,7 +5,7 @@ export interface AuthContextType{
     isAuthenticated:boolean;
     jwtToken: string | null;
     user : User | null;
-    login : (arg0:string,arg1:User)=>void;
+    login : (arg0:string)=>void;
     logout : () =>void;
 }
 

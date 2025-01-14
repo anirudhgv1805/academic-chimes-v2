@@ -92,4 +92,17 @@ public class UserDTO {
         this.batch = batch;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " username='" + getUsername() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", role='" + getRole() + "'" +
+            ", dept='" + getDept() + "'" +
+            ", section='" + getSection() + "'" +
+            ", batch='" + getBatch() + "'" +
+            "}";
+    }
+
 }

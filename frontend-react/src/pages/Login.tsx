@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { LoginDTO } from "../types/LoginDTO";
 import { axiosInstance } from "../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
 // import {AuthProvider} from "../context/AuthProvider"
 // import {AuthContext} from "../context/AuthContext"
 
@@ -9,7 +10,7 @@ const Login : React.FC = () =>{
     
     const navigate = useNavigate();
 
-    // const {login} = useContext(AuthContext);
+    const {login} = useAuth();
 
     const [loginData,setLoginData] = useState<LoginDTO>({
         userId:'',
@@ -37,10 +38,15 @@ const Login : React.FC = () =>{
 
         try{
             const response = await axiosInstance.post('/auth/login',loginData);
-            if(response?.status === 200){
-                console.log(response.data);
+            const data = response.data;
+            if(data.statusCodeValue === 200){
+                const token = response.data.body;
+                login(token);
                 setSuccessMessage("Login is successfull");
                 navigate('/dashboard');
+            }
+            else if(data.statusCodeValue === 401){
+                setErrorMessage("Password is incorrect");
             }
         } catch(err : unknown){
             setErrorMessage("An error occurred:"+err);
