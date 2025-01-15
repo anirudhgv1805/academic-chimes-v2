@@ -1,12 +1,22 @@
 import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import './index.css';
+import { DashBoard } from './pages/DashBoard';
+import Login from "./pages/Login";
+import { Register } from "./pages/Register";
 
 
-function App(){
+const App : React.FC = () => {
   return(
-    <>
-    <h1 className="text-7xl flex items-center justify-center h-screen text-cyan-600">React is ready with tailwind css and typescript setup</h1>
-    </>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/dashboard" element={<DashBoard/>}/>
+          {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/> */}
+        </Routes>
+      </BrowserRouter>
   );
-}
+};
 
-export default App
+export default App;
