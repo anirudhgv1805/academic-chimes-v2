@@ -1,9 +1,6 @@
 # Use a multi-stage build to keep the final image small
 # Stage 1: Build the application
-FROM maven:3.8.6-openjdk-17 AS builder
-# Install OpenJDK 21 on top of OpenJDK 17 image
-RUN apt-get update && apt-get install -y openjdk-21-jdk
-
+FROM maven:3.8.6-jdk-17 AS builder
 # Set the working directory inside the container
 WORKDIR /app
 # Copy project files to the container
