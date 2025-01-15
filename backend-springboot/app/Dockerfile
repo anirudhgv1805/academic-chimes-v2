@@ -1,11 +1,11 @@
 # Use a multi-stage build to keep the final image small
 # Stage 1: Build the application
-FROM maven:3.8.6-jdk-17 AS builder
+FROM maven:3.8.6 AS builder
 # Set the working directory inside the container
 WORKDIR /app
 # Copy project files to the container
 COPY . .
-# Build the application
+# Build the application with OpenJDK 21 as the Java version
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create the runtime container
