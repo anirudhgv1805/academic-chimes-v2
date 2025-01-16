@@ -1,7 +1,6 @@
 package com.academicchimes.app.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ import com.academicchimes.app.services.UserService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("${cors.allowedOrigins}")
 public class UserProfileController {
 
     @Autowired
@@ -24,7 +22,6 @@ public class UserProfileController {
 
     @PostMapping("/me")
     public UserDTO giveProfile(@RequestHeader("Authorization") String authorizationHeader) {
-        System.out.println("This is the acutal request"+authorizationHeader);
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
             String token = authorizationHeader.substring(7);
             String userId = jwtUtil.extractUserName(token);

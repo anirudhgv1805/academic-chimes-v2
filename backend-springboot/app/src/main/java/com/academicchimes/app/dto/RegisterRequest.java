@@ -1,12 +1,14 @@
 package com.academicchimes.app.dto;
 
+import com.academicchimes.app.models.Role;
+
 public class RegisterRequest {
     
     private String userId;
     private String username;
     private String password; 
     private String email;
-    private String role;
+    private Role role;
     private String dept;
     private String section;
     private int batch;
@@ -43,11 +45,11 @@ public class RegisterRequest {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return this.role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -82,7 +84,7 @@ public class RegisterRequest {
             ", username='" + getUsername() + "'" +
             ", password='" + getPassword() + "'" +
             ", email='" + getEmail() + "'" +
-            ", role='" + getRole() + "'" +
+            ", role='" + getRole().name() + "'" +
             ", dept='" + getDept() + "'" +
             ", section='" + getSection() + "'" +
             ", batch='" + getBatch() + "'" +

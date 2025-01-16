@@ -17,8 +17,4 @@ public class UserService {
         return userDTO;
     }
 
-    
-    public String example(){
-        return new String("Hello World!!");
-    }
 }

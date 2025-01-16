@@ -9,6 +9,8 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.academicchimes.app.models.Role;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
@@ -23,14 +25,14 @@ public class JwtUtil{
     @Value("${jwt.expiration}")
     private long expirationTime;
 
-    public String generateToken(String userId,String role){
+    public String generateToken(String userId,Role role){
 
         byte[] secretKeyBytes = Base64.getDecoder().decode(secretKey);
         Key key = Keys.hmacShaKeyFor(secretKeyBytes);
 
         return Jwts.builder()
                 .subject(userId)
-                .claim("role", role)
+                .claim("role", role.name())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis()+expirationTime))
                 .signWith(key)

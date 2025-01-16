@@ -15,26 +15,29 @@ export const AuthProvider : React.FC< AuthProviderProps > = ({ children }) => {
     
     useEffect( () => {
         if(jwtToken){
+            const getUserData = async() =>{
+                try{
+                    const response = await axiosInstance.post('/me');
+                    localStorage.setItem('user',JSON.stringify(response.data));
+                    console.log("user ",JSON.stringify(response.data))
+                } catch(err : unknown){
+                    console.log("cannot fetch the user"+err);
+                } finally{
+                    console.log("fetched the user");
+                }
+                
+            };
+            getUserData();
+            console.log("at authprovider")
             const userDetails = JSON.parse(localStorage.getItem('user') || '{}')
             setUser(userDetails);
         }
     },[jwtToken]);
 
-    const getUserData = async() =>{
-        try{
-            const response = await axiosInstance.post('/me');
-            localStorage.setItem('user',JSON.stringify(response.data));
-        } catch(err : unknown){
-            console.log("cannot fetch the user"+err);
-        } finally{
-            console.log("fetched the user");
-        }
-        
-    };
+
     const login = async (jwtToken:string) => {
         localStorage.setItem('jwtToken',jwtToken);
         setJwtToken(jwtToken);
-        await getUserData();
     };
 
     const logout = () =>{

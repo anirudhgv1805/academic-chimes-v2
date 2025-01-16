@@ -1,12 +1,13 @@
 package com.academicchimes.app.dto;
 
+import com.academicchimes.app.models.Role;
 import com.academicchimes.app.models.User;
 
 public class UserDTO {
     private String username;
     private String userId;
     private String email;
-    private String role;
+    private Role role;
     private String dept;
     private String section;
     private int batch;
@@ -25,7 +26,7 @@ public class UserDTO {
         this.batch = user.getBatch();
     }
 
-    public UserDTO(String username, String userId, String email, String role, String dept, String section, int batch) {
+    public UserDTO(String username, String userId, String email, Role role, String dept, String section, int batch) {
         this.username = username;
         this.userId = userId;
         this.email = email;
@@ -60,11 +61,11 @@ public class UserDTO {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return this.role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

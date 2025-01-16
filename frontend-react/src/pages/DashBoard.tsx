@@ -7,17 +7,12 @@ export const DashBoard : React.FC = () =>{
     const [errorMessage,setErrorMessage] = useState<string | null>(null);
 
     const {user,logout} = useAuth();
-    console.log(JSON.stringify(user));
+    //console.log(JSON.stringify(user));
+    // logout();
     return(
         <>
-            <h1> hello
-                {user?.userId}<br></br>
-                {user?.username}<br></br>
-                {user?.email}<br></br>
-                {user?.dept}<br></br>
-                {user?.role}<br></br>
-                {user?.batch}<br></br>
-            </h1>
+            <h1>{user!=null ? `hi data is here` :  `nothing is here` }</h1>
+            <h1>{user?.userId}</h1>
         </>
     );
 }

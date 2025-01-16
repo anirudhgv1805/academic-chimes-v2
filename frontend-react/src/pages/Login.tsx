@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
-import { LoginDTO } from "../types/LoginDTO";
-import { axiosInstance } from "../utils/axiosInstance";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
+import { LoginDTO } from "../types/LoginDTO";
+import { useAxiosInstance } from "../utils/axiosInstance";
 // import {AuthProvider} from "../context/AuthProvider"
 // import {AuthContext} from "../context/AuthContext"
 
@@ -11,6 +11,8 @@ const Login : React.FC = () =>{
     const navigate = useNavigate();
 
     const {login} = useAuth();
+
+    const axiosInstance = useAxiosInstance();
 
     const [loginData,setLoginData] = useState<LoginDTO>({
         userId:'',
@@ -42,8 +44,10 @@ const Login : React.FC = () =>{
             if(data.statusCodeValue === 200){
                 const token = response.data.body;
                 login(token);
+                console.log("Login is successful"+token)
                 setSuccessMessage("Login is successfull");
                 navigate('/dashboard');
+                console.log("navigated to dashboarrd")
             }
             else if(data.statusCodeValue === 401){
                 setErrorMessage("Password is incorrect");

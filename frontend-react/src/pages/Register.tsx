@@ -158,10 +158,10 @@ export const Register : React.FC= () => {
                   required
                   className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="student">Student</option>
-                  <option value="admin">Admin</option>
-                  <option value="professor">Professor</option>
-                  <option value="assistantProfessor">Assistant Professor</option>
+                  <option value="STUDENT">Student</option>
+                  <option value="ADMIN">Admin</option>
+                  <option value="PROFESSOR">Professor</option>
+                  <option value="ASSISTANTPROFESSOR">Assistant Professor</option>
                 </select>
               </div>
       
