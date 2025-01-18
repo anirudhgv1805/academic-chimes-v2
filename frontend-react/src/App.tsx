@@ -5,6 +5,7 @@ import { DashBoard } from './pages/DashBoard';
 import Login from "./pages/Login";
 import { Register } from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { Logout } from "./components/Logout";
 
 
 const App : React.FC = () => {
@@ -17,6 +18,7 @@ const App : React.FC = () => {
           <Route path="/dashboard" element={<ProtectedRoute redirect="/"/>}>
             <Route path="/dashboard" element={<DashBoard />} />
           </Route>
+          <Route path="/logout" element={<Logout/>}/>
         </Routes>
       </BrowserRouter>
   );

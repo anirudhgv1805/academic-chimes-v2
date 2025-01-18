@@ -17,6 +17,7 @@ export const useAxiosInstance = () => {
             (config) => {
                 if (jwtToken) {
                     config.headers['Authorization'] = `Bearer ${jwtToken}`;
+                    console.log("jwt is there");
                 }
                 return config;
             },
@@ -28,7 +29,7 @@ export const useAxiosInstance = () => {
             (error) => {
                 if (error.response?.status === 401) {
                     console.log('Unauthorized access, redirecting to login...');
-                    window.location.href = '/login';
+                    window.location.href = '/register';
                 }
                 return Promise.reject(error);
             }

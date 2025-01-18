@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.academicchimes.app.dto.RegisterRequest;
 import com.academicchimes.app.models.User;
 import com.academicchimes.app.services.UserAuthService;
 
@@ -32,6 +33,8 @@ public class AuthController {
 
     @PostMapping("/auth/register")
     public ResponseEntity<?> registerAuth(@RequestBody User registerRequest) { 
-        return ResponseEntity.ok(userAuthService.saveUser(registerRequest));
+        if(!userAuthService.userAlreadyExists(registerRequest))
+            return ResponseEntity.ok(userAuthService.saveUser(registerRequest));
+        return ResponseEntity.status(401).body("User is already registered");
     }
 }

@@ -18,7 +18,13 @@ public class UserAuthService {
     private JwtUtil jwtUtil;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    
+    public boolean userAlreadyExists(User user){
+        if(userRepository.existsByUserId(user.getUserId())){
+            return true;
+        }
+        return false;
+    }
     public ResponseEntity<?> saveUser(User registerRequest){
         User user = registerRequest;
         if(userRepository.existsByUserId(user.getUserId()))

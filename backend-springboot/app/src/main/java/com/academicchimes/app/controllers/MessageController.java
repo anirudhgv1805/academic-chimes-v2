@@ -1,20 +1,21 @@
 package com.academicchimes.app.controllers;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import com.academicchimes.app.models.Message;
 
 
-@RestController
+@Controller
 @RequestMapping("/api/chat")
 public class MessageController {
 
-    @PostMapping("/")
-    public String postMethodName(@RequestBody String entity) {
-        //TODO: process POST request
-        
-        return entity;
+    @MessageMapping("/private")
+    public ResponseEntity<?> sendPrivateMessage(Message message){
+        return ResponseEntity.ok().body("message sent");
     }
     
 }
+   

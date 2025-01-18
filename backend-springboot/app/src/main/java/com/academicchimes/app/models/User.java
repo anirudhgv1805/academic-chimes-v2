@@ -1,9 +1,14 @@
 package com.academicchimes.app.models;
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity(name = "users")
 public class User {
@@ -21,6 +26,22 @@ public class User {
     private String section;
     private int batch;
 
+    @ManyToMany
+    @JoinTable(
+        name = "user_groups",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "group_id")
+    )
+    private Set<Group> groups;
+
+    @ManyToMany
+    @JoinTable(
+        name = "user_contacts", 
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "contact_id")
+    )
+    private Set<User> contacts;
+    
     public User() {
     }
 
