@@ -12,12 +12,10 @@ export const useAxiosInstance = () => {
     const  jwtToken = localStorage.getItem("jwtToken");
 
     useEffect(() => {
-        console.log("At axios instance"+jwtToken)
         const requestInterceptor = axiosInstance.interceptors.request.use(
             (config) => {
                 if (jwtToken) {
                     config.headers['Authorization'] = `Bearer ${jwtToken}`;
-                    console.log("jwt is there");
                 }
                 return config;
             },
