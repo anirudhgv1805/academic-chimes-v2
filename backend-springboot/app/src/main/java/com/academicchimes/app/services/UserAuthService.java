@@ -18,34 +18,32 @@ public class UserAuthService {
     private JwtUtil jwtUtil;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
-    public boolean userAlreadyExists(User user){
-        if(userRepository.existsByUserId(user.getUserId())){
-            return true;
-        }
-        return false;
+
+    public boolean userAlreadyExists(User user) {
+        return userRepository.existsByUserId(user.getUserId());
     }
-    public ResponseEntity<?> saveUser(User registerRequest){
+
+    public ResponseEntity<?> saveUser(User registerRequest) {
         User user = registerRequest;
-        if(userRepository.existsByUserId(user.getUserId()))
+        if (userRepository.existsByUserId(user.getUserId()))
             return ResponseEntity.status(409).body("User already registered");
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         return ResponseEntity.ok(userRepository.save(user));
     }
 
     public ResponseEntity<String> loginUser(User loginRequest) {
-        if(!userRepository.findByUserId(loginRequest.getUserId()).isPresent()) 
+        if (!userRepository.findByUserId(loginRequest.getUserId()).isPresent())
             return ResponseEntity.status(401).body("User is not registered");
-        if(verifyCredentials(loginRequest)){
+        if (verifyCredentials(loginRequest)) {
             User user = userRepository.findByUserId(loginRequest.getUserId()).get();
             String token = jwtUtil.generateToken(user.getUserId(), user.getRole());
             return ResponseEntity.ok().body(token);
-        }
-        else 
+        } else
             return ResponseEntity.status(401).body("Password is incorrect");
     }
 
-    private Boolean verifyCredentials(User loginRequest){
-        return passwordEncoder.matches(loginRequest.getPassword(),userRepository.findByUserId(loginRequest.getUserId()).get().getPassword());
+    private Boolean verifyCredentials(User loginRequest) {
+        return passwordEncoder.matches(loginRequest.getPassword(),
+                userRepository.findByUserId(loginRequest.getUserId()).get().getPassword());
     }
 }

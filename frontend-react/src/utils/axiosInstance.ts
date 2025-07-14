@@ -27,7 +27,7 @@ export const useAxiosInstance = () => {
             (error) => {
                 if (error.response?.status === 401) {
                     console.log('Unauthorized access, redirecting to login...');
-                    window.location.href = '/register';
+                    window.location.href = '/login';
                 }
                 return Promise.reject(error);
             }

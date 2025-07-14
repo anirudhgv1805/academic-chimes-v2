@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useAxiosInstance } from "../utils/axiosInstance";
+import Header from "../components/Header";
 
 export const DashBoard: React.FC = () => {
   const navigate = useNavigate();
@@ -13,13 +14,16 @@ export const DashBoard: React.FC = () => {
   const axiosInstance = useAxiosInstance();
 
   return (
-    <div className="flex items-center flex-col h-screen justify-center next">
-      <button className="bg-red-500 p-4" onClick={() => navigate("/logout")}>
-        Logout
-      </button>
+    <>
+      <Header />
+      <div className="flex-grow flex flex-col items-center justify-center">
+        <button className="bg-red-500 p-4" onClick={() => navigate("/logout")}>
+          Logout
+        </button>
 
-      <h1>Hello user, This is the dashboard</h1>
-      <h1>{user?.userId}</h1>
-    </div>
+        <h1>Hello user, This is the dashboard</h1>
+        <h1>{user?.userId}</h1>
+      </div>
+    </>
   );
 };

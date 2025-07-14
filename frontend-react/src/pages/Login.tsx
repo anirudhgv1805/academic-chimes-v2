@@ -58,7 +58,8 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="flex justify-center items-centeral
+       bg-gray-100">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
             Login In

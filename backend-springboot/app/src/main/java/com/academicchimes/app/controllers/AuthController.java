@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.academicchimes.app.dto.RegisterRequest;
 import com.academicchimes.app.models.User;
 import com.academicchimes.app.services.UserAuthService;
 
@@ -23,7 +22,7 @@ public class AuthController {
 
     @GetMapping("/")
     public String apiStatus() {
-        return new String("Backend API is live");
+        return "Backend API is live";
     }
 
     @PostMapping("/auth/login")
