@@ -38,8 +38,16 @@ export const Register: React.FC = () => {
     setErrorMessage(null);
     setSuccessMessage(null);
 
+    const validatedData = {
+      ...userData,
+      userId: userData.userId.toLowerCase(),
+    };
+
     try {
-      const response = await axiosInstance.post("/auth/register", userData);
+      const response = await axiosInstance.post(
+        "/auth/register",
+        validatedData
+      );
       alert("registration is successful");
       if (response.status === 200) {
         setSuccessMessage("Registration is successful");

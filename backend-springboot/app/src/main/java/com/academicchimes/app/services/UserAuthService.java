@@ -28,6 +28,7 @@ public class UserAuthService {
         if (userRepository.existsByUserId(user.getUserId()))
             return ResponseEntity.status(409).body("User already registered");
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setUserId(registerRequest.getUserId().toLowerCase());
         return ResponseEntity.ok(userRepository.save(user));
     }
 

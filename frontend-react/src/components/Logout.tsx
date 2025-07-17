@@ -20,7 +20,7 @@ export const Logout: React.FC = () => {
         Login
       </button>
 
-      <h1>Logout done</h1>
+      <h1>Logout done!</h1>
     </div>
   );
 };
