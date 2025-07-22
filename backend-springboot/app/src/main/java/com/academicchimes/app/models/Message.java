@@ -31,7 +31,7 @@ public class Message {
 
     private String content;
     private String fileUrl;
-    private String fileType;
+    private MessageType fileType;
     private Instant timestamp;
 
     public Long getId() {
@@ -82,11 +82,11 @@ public class Message {
         this.fileUrl = fileUrl;
     }
 
-    public String getFileType() {
+    public MessageType getFileType() {
         return fileType;
     }
 
-    public void setFileType(String fileType) {
+    public void setFileType(MessageType fileType) {
         this.fileType = fileType;
     }
 

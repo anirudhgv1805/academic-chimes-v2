@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.academicchimes.app.models.User;
+import com.academicchimes.app.models.UserStatus;
 import com.academicchimes.app.repositories.UserRepository;
 import com.academicchimes.app.security.JwtUtil;
 
@@ -29,6 +30,8 @@ public class UserAuthService {
             return ResponseEntity.status(409).body("User already registered");
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setUserId(registerRequest.getUserId().toLowerCase());
+        user.setIsOnline(false);
+        user.setUserStatus(UserStatus.OFFLINE);
         return ResponseEntity.ok(userRepository.save(user));
     }
 

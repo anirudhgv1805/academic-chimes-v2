@@ -24,7 +24,7 @@ public enum MessageType {
                 return m;
             }
         }
-        throw new IllegalArgumentException("Unexpected Role : " + MessageTypeName);
+        throw new IllegalArgumentException("Unexpected Type : " + MessageTypeName);
     }
 
 }

@@ -17,10 +17,6 @@ export const DashBoard: React.FC = () => {
     <>
       <Header />
       <div className="flex-grow flex flex-col items-center justify-center">
-        <button className="bg-red-500 p-4" onClick={() => navigate("/logout")}>
-          Logout
-        </button>
-
         <h1>Hello user, This is the dashboard</h1>
         <h1>{user?.userId}</h1>
       </div>

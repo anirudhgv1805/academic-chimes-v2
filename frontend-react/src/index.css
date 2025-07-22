@@ -8,6 +8,33 @@ html::-webkit-scrollbar {
 }
 
 body, html {
-  -ms-overflow-style: none; 
-  scrollbar-width: none;    
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
 }

@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import { Register } from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Logout } from "./components/Logout";
+import PrivateRoute from "./components/PrivateRoute";
+import { ChatWindow } from "./pages/ChatWindow";
 
 const App: React.FC = () => {
   return (
@@ -13,9 +15,18 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
           <Route path="/dashboard" element={<ProtectedRoute redirect="/" />}>
             <Route path="/dashboard" element={<DashBoard />} />
           </Route>
+          <Route
+            path="/chat"
+            element={
+              <PrivateRoute>
+                <ChatWindow />
+              </PrivateRoute>
+            }
+          />
           <Route path="/logout" element={<Logout />} />
         </Routes>
       </BrowserRouter>
