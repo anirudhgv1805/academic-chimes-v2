@@ -9,7 +9,7 @@ const ChatList: React.FC = () => {
       <div className="border-b p-4 bg-green-800 text-lg font-semibold">
         Academic Chimes Welcome : {user?.userId.toUpperCase()}
       </div>
-      <div className="flex-1 overflow-y-auto p-2 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto p-2 custom-scrollbar scroll-smooth overscroll-y-auto">
         <ul className="space-y-2">
           {Array.from({ length: 30 }).map((_, i) => (
             <li

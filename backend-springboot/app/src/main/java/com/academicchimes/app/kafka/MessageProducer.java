@@ -1,9 +1,10 @@
 package com.academicchimes.app.kafka;
 
-import com.academicchimes.app.models.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
+import com.academicchimes.app.models.Message;
 
 @Service
 public class MessageProducer {
